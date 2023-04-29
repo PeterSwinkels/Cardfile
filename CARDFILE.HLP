@@ -1,5 +1,5 @@
 0
-* Keys:
+* Keys
 -       <-/-> = Previous/next card.
 -      Delete = Remove a row of text.
 -      Escape = Open pulldownmenus/cancel.
@@ -8,7 +8,7 @@
 - Control + N = Enter caption for card.
 x
 1
-* Pulldownmenus:
+* Pull down menus:
 - [ File: ]
 -        New File = Start with a new file.
 -       Load File = Load a file.
@@ -30,39 +30,31 @@ x
 x
 2
 * Error Messages:
-- [ Error Code ]
--     0 =   Unknown error.
--           An unexpected error occurred.
--     1 =   Not enough memory.
--           There is not enough memory
--           for Cardfile to work.
--     2 =   Bad file name.
--           The file name is either too long
--           or contains characters that are
--           not allowed in a file name.
--     3 =   Cannot find file.
--           A file necessary for Cardfile
--           to work or a file specified to be
--           loaded could not be found.
--     4 =   The disk is full.
--           There is not enough space to
--           save a file on the disk.
--     5 =   Error while reading file.
--           This can have the following causes:
--           1 The file format is incompatible with Cardfile.
--           2 There is an error in the file format.
--           3 Part of the file is missing.
--     6 =   Disk/file is write protected.
--           The disk or file to which Cardfile attempted
--           to write is write protected.
--     7 =   No disk in diskdrive.
--           Card file cannot write to
--           or read from the disk.
--     8 =   The disk is damaged.
--           The disk contains bad clusters or
--           the diskdrive might need to be cleaned.
--     9 =   Cannot find directory.
--           The specified directory
--           could not be found.
+-  7 Out of memory.
+- 14 Out of string space.     (Usually the same as "Out of memory.")
+- 25 Device fault.            (Diskdrive or printer issue.)
+- 27 Out of paper.            (Printer.)
+- 52 Bad file name or number. (Probably while/after an issue with files.)
+- 53 File not found.
+- 55 File already open.       (Probably while/after an issue with files.)
+- 57 Device I/O error.        (Diskdrive or printer issue.)
+- 61 Disk full.
+- 62 Input past end of file.  (Probably a damaged/incompatible file.)
+- 67 Too many files.
+- 68 Device unavailable.      (Diskdrive or printer issue.)
+- 70 Permission denied.       (File/disk might in use or write protected.)
+- 71 Disk not ready.
+- 72 Disk-media error.
+- 75 Path/File access error.
+- 76 Path not found.
+-
+- Any other error code indicates an error that is not expected to occur
+- during normal program operation. The description for those is:
+- "Unexpected error."
+-
+- Keys:
+- Enter = Retry.
+- Escape = Quit.
+- F1 = Help.
+- Space = Ignore.
 x
-

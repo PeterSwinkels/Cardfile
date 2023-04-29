@@ -49,6 +49,7 @@ PullDownMenuData:
 DATA 13, 6, 12, 2, 17, 3, 14, 2
 
 ErrorTrap:
+DIM Description AS STRING
 DIM ErrorCode AS INTEGER
 DIM KeyStroke AS STRING
 DIM Row AS INTEGER
@@ -63,44 +64,47 @@ DIM Row AS INTEGER
   COLOR 0, 7
   LOCATE 5
   SELECT CASE ErrorCode
-   CASE 7, 14
-    Center 0, " Not enough memory. "
-    Center 0, " Error: 1           "
-   CASE 52, 64
-    Center 0, " Bad file name. "
-    Center 0, " Error: 2       "
+   CASE 7
+    Description = "Out of memory."
+   CASE 14
+    Description = "Out of string space."
+   CASE 25
+    Description = "Device fault."
+   CASE 27
+    Description = "Out of paper."
+   CASE 52
+    Description = "Bad file name or number."
    CASE 53
-    Center 0, " Cannot find file. "
-    Center 0, " Error: 3          "
+    Description = "File not found."
+   CASE 55
+    Description = "File already open."
+   CASE 57
+    Description = "Device I/O error."
    CASE 61
-    Center 0, " The disk is full. "
-    Center 0, " Error: 4          "
+    Description = "Disk full."
    CASE 62
-    Center 0, " Error while   "
-    Center 0, " reading file. "
-    Center 0, " Error: 5      "
+    Description = "Input past end of file."
+   CASE 67
+    Description = "Too many files."
+   CASE 68
+    Description = "Device unavailable."
    CASE 70
-    Center 0, " Disk/file is     "
-    Center 0, " write protected. "
-    Center 0, " Error: 6         "
+    Description = "Permission denied."
    CASE 71
-    Center 0, " No disk in diskdrive. "
-    Center 0, " Error: 7              "
+    Description = "Disk not ready."
    CASE 72
-    Center 0, " The disk is damaged. "
-    Center 0, " Error: 8             "
+    Description = "Disk-media error."
+   CASE 75
+    Description = "Path/File access error."
    CASE 76
-    Center 0, " Cannot find "
-    Center 0, " directory.  "
-    Center 0, " Error: 9    "
+    Description = "Path not found."
    CASE ELSE
-    Center 0, " Unexpected error. "
-    Center 0, " Error: 0       "
+    Description = "Unexpected error."
   END SELECT
-  PRINT
-  COLOR 7, 0
-  Center 0, " Enter = Retry  Spacebar = Ignore  Escape = Quit "
-  Center 0, " F1 = Help "
+  DrawBox 9, 24, 30, 3, -1
+  Center 10, Description
+  Center 0, "Error code:" + STR$(ErrorCode)
+  Center 0, "F1 = Help"
   DO
    DO
     KeyStroke = INKEY$
@@ -296,12 +300,12 @@ DIM Row AS INTEGER
  COLOR 0, 7
  DrawBox 1, 1, 78, 21, 0
  Center 1, "´ Help Ã"
-
- HelpCurrentRow = 0
  LOCATE 21, 1
  PRINT "Ã"; STRING$(78, "Ä"); "´";
  LOCATE 22, 21
  PRINT "/ = Scroll   Control + P = Print Topic"
+
+ HelpCurrentRow = 0
  DO
   LOCATE 2
   FOR Row = HelpCurrentRow TO HelpCurrentRow + 18
@@ -315,8 +319,9 @@ DIM Row AS INTEGER
    END SELECT
 
    LOCATE , 2
-   PRINT MID$(HelpText(Row), 2); SPACE$(70 - LEN(HelpText(Row)) - 1)
+   PRINT MID$(HelpText(Row), 2); SPACE$(78 - (LEN(HelpText(Row))))
   NEXT Row
+
   COLOR 7, 0
   LOCATE 22, 3
   PRINT USING " Row: ### "; HelpCurrentRow + 1;
@@ -489,7 +494,7 @@ DIM Row AS STRING
   LOOP
  CLOSE FileH
  COLOR 0, 7
- Center 12, " Cardfile v1.01, By: Peter Swinkels, ***1996*** "
+ Center 12, " Cardfile v1.02, By: Peter Swinkels, ***1996*** "
  Center 14, " Press any key to continue. "
 
  KeyStroke = INPUT$(1)
@@ -730,8 +735,6 @@ DIM ControlCharacter AS STRING
 DIM FileH AS INTEGER
 DIM HelpRowCount AS INTEGER
 DIM HelpTextLine AS STRING
-
-CLS ''
 
  FileH = FREEFILE
  OPEN "CardFile.hlp" FOR INPUT LOCK READ WRITE AS FileH
